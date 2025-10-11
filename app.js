@@ -1,15 +1,18 @@
 import express from "express";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 import userRoutes from "./routes/userRoute.js";
 
 const app = express();
 
 app.use(express.json());
 
+dotenv.config(process.env.MONGO_URI);
+
 const connectDB = async () => {
   try {
     await mongoose
-      .connect("mongodb://127.0.0.1:27017/first_app")
+      .connect(process.env.MONGO_URI)
       .then(() => console.log("Connected!"));
   } catch (error) {
     console.error(`Error: ${error}`);
@@ -24,7 +27,8 @@ app.get("/", (req, res) => {
   res.send("Express test");
 });
 
-const PORT = 7000;
+const PORT = process.env.PORT;
+
 app.listen(PORT, () =>
   console.log(`Server is running in http://localhost:${PORT}`)
 );
