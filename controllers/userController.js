@@ -11,6 +11,7 @@ export const getAllUsers = async (req, res) => {
   }
 };
 
+//create user
 export const createUser = async (req, res) => {
   try {
     const newUser = new User(req.body);
@@ -24,6 +25,7 @@ export const createUser = async (req, res) => {
   }
 };
 
+// create book
 export const createBook = async (req, res) => {
   try {
     const newUser = new User(req.body);
@@ -45,6 +47,6 @@ export const deleteUser = async (req, res) => {
     if (!users) return res.status(404).json({ Message: "User not found" });
     res.send(users);
   } catch (error) {
-    res.error.status(500).json({ error: error });
+    res.status(500).json({ error: error.message || error });
   }
 };
